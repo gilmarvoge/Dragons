@@ -1,0 +1,27 @@
+#page-home {
+  height: 100vh;
+  overflow-y: auto;
+  width: 100%;
+  margin: 0;
+  background: url("../../assets/home-background.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom right;
+}
+
+#page-home .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.fab {
+  position: absolute !important;
+  bottom: 0;
+  margin-bottom: 20px!important;
+  margin-left: 20px!important;
+}
