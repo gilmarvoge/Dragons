@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FiSmile } from 'react-icons/fi';
-import { SnackBar, Header, Forms } from 'components';
+import { Header, Forms } from 'components';
 import { addUser, validateUser } from 'services';
 
 function SignUp() {
     const { register, handleSubmit, errors, reset } = useForm();
-    const [snack, setSnack] = useState({ open: false, type: '', message: '' });
 
     const handleSubmitUser = async (data: any, event: any) => {
         event.preventDefault();
@@ -16,17 +15,16 @@ function SignUp() {
             const newUser = { user, password };
             const responseValidate = await validateUser(user);
             if (responseValidate.data.length)
-                setSnack({ open: true, type: 'error', message: 'Exte usuário já possui cadastro' });
+                alert('This user already has registration');
             else {
                 const response = await addUser(newUser);
-                if (response.data) {
+                if (response.data)
                     reset();
-                    setSnack({ open: true, type: 'success', message: 'Usuário cadastrado com sucesso' });
-                } else
-                    setSnack({ open: true, type: 'error', message: `Não foi possível realizar o cadastro ${response.status} ${response.statusText}` });
+                else
+                    alert(`Unable to register: ${response.status} ${response.statusText}`);
             }
         } catch (error) {
-            setSnack({ open: true, type: 'error', message: `Não foi possível realizar o cadastro ${error}` });
+            alert(`Unable to register: ${error}`);
         }
     }
 
@@ -36,26 +34,26 @@ function SignUp() {
             <Forms>
                 <form id='formuser' onSubmit={handleSubmit(handleSubmitUser)}>
                     <header>
-                        <h1>Crie sua conta</h1>
+                        <h1>Create account</h1>
                     </header>
                     <fieldset>
                         <div className='field'>
-                            <label htmlFor='user'>Usuário</label>
+                            <label htmlFor='user'>User</label>
                             <input
                                 type='text'
                                 name='user'
                                 id='user'
-                                ref={register({ required: 'Digite um usuário' })}
+                                ref={register({ required: 'Enter the username' })}
                             />
                             {errors.user && <span role="alert">{errors.user.message}</span>}
                         </div>
                         <div className='field'>
-                            <label htmlFor='password'>Senha</label>
+                            <label htmlFor='password'>Password</label>
                             <input
                                 type='password'
                                 name='password'
                                 id='password'
-                                ref={register({ required: 'Digite uma senha' })}
+                                ref={register({ required: 'Enter the password' })}
                             />
                             {errors.password && <span role="alert">{errors.password.message}</span>}
                         </div>
@@ -64,21 +62,12 @@ function SignUp() {
                         <span>
                             <FiSmile />
                         </span>
-                        <strong>Cadastrar</strong>
+                        <strong>register</strong>
                     </button>
-                    <div id='page-login-criar'>Já possui cadastro?
+                    <div id='page-login-criar'>Already registered?
                         <Link to='/login'> Login</Link>
                     </div>
                 </form>
-                {
-                    snack.open &&
-                    < SnackBar
-                        open={snack.open}
-                        type={snack.type}
-                        message={snack.message}
-                        onClose={setSnack}
-                    />
-                }
             </Forms>
         </div>
     )

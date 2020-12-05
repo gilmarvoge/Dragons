@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FiLogIn } from 'react-icons/fi';
-import { Header, SnackBar, Forms } from 'components';
+import { Header, Forms } from 'components';
 import { login, getLogin } from 'services';
 import './styles.css';
 
 function Login() {
     const { push } = useHistory();
     const { register, handleSubmit, errors } = useForm();
-    const [snack, setSnack] = useState({ open: false, type: '', message: '' });
 
     const handleSubmitUser = async (data: any, event: any) => {
         event.preventDefault();
@@ -19,19 +18,18 @@ function Login() {
             if (response.data.length) {
                 const result = Object.assign({}, ...response.data);
                 login(String(result.id));
-
                 push('/');
             } else
-                setSnack({ open: true, type: 'error', message: 'Usuário ou senha incorretos' });
+                alert('Incorrect username or password');
         } catch (error) {
-            setSnack({ open: true, type: 'error', message: `Não foi possível realizar o login ${error}` });
+            alert(`Could not login: ${error}`);
         }
     }
 
     return (
         <div >
             <Header />
-          <Forms>
+            <Forms>
                 <form onSubmit={handleSubmit(handleSubmitUser)}>
                     <header>
                         <h1>Login</h1>
@@ -68,15 +66,6 @@ function Login() {
                         <Link to='/signup'> Register</Link>
                     </div>
                 </form>
-                {
-                    snack.open &&
-                    < SnackBar
-                        open={snack.open}
-                        type={snack.type}
-                        message={snack.message}
-                        onClose={setSnack}
-                    />
-                }
             </Forms>
         </div>
     )

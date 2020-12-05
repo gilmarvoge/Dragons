@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { FiSave } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
-import { SnackBar, Header, Forms } from 'components';
+import { Header, Forms } from 'components';
 import { IDragons, IDragon } from 'models';
 import { addDragon, editDragon } from 'services';
 import { setDragon, setEditedDragon } from 'redux/actions';
@@ -21,7 +21,6 @@ function CreateEditDragon(props: CreateEditBookProps) {
     const { push } = useHistory();
     const { dragonId } = useParams<ParamTypes>();
     const { dragons } = props;
-    const [snack, setSnack] = useState({ open: false, type: '', message: '' });
     const [dragonToEdit, setdragonToEdit] = useState<IDragon>();
     const { register, handleSubmit, reset, errors } = useForm();
 
@@ -31,9 +30,6 @@ function CreateEditDragon(props: CreateEditBookProps) {
             setdragonToEdit(dragon[0]);
         }
     }, [dragonId, dragons]);
-
-    useEffect(() => {       
-    }, [useHistory]);
 
     const handleSubmitBook = async (data: any, event: any) => {
         event.preventDefault();
@@ -48,17 +44,15 @@ function CreateEditDragon(props: CreateEditBookProps) {
                     dispatch(setEditedDragon(dragonId, dragon));
                     push('/');
                 }
-            } else {              
+            } else {
                 let response = await addDragon(dragon);
                 if (response.data) {
                     dispatch(setDragon(response.data));
-                    setSnack({ open: true, type: 'success', message: 'Livo cadastrado com sucesso' });
+                    push('/');
                 }
             }
             reset();
         }
-        else
-            setSnack({ open: true, type: 'error', message: 'Campos não preenchidos' });
     }
 
     return (
@@ -110,16 +104,6 @@ function CreateEditDragon(props: CreateEditBookProps) {
                     </button>
                 </form>
             </Forms>
-            {
-                snack.open &&
-                <SnackBar
-                    open={snack.open}
-                    type={snack.type}
-                    message={snack.message}
-                    onClose={setSnack}
-                />
-            }
-
         </div>
     )
 }

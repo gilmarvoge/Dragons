@@ -1,5 +1,4 @@
-
-#form{
+#form {
   width: 100%;
   display: flex;
   -webkit-box-pack: justify;
@@ -35,16 +34,17 @@
 }
 
 #form form .field input[type="text"], #form form .field input[type="password"] {
-  flex: 1; 
+  flex: 1;
   border-radius: 8px;
   border: 0;
   padding: 16px 24px;
-  font-size: 16px; 
+  font-size: 16px;
   outline: 0px;
   border: 2px solid;
 }
-#form form .field input:focus{
-  border:  2px solid var(--primary-color);  
+
+#form form .field input:focus {
+  border: 2px solid var(--primary-color);
 }
 
 #form form .field input:disabled {
@@ -79,7 +79,7 @@
   height: 50px;
   transition: background 0.2s ease 0s, color 0.2s ease 0s;
   text-transform: uppercase;
-  outline:none;
+  outline: none;
 }
 
 #form form button:hover {
@@ -94,7 +94,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;  
+  transition: background-color 0.2s;
 }
 
 #form form button strong {

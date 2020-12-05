@@ -9,18 +9,18 @@
     background: var(--background-color-card);
 }
 
-.dragon_social {
+.dragon_actions {
     height: 10%;
     padding-left: 15px;
     padding-bottom: 20px;
 }
 
-.dragon_social ul {
+.dragon_actions ul {
     list-style: none;
     padding: 0;
 }
 
-.dragon_social ul li {
+.dragon_actions ul li {
     display: inline-block;
     color: rgba(255, 255, 255, 0.4);
     transition: color 0.3s;
@@ -28,12 +28,12 @@
     margin: 0 10px;
 }
 
-.dragon_social ul li:hover {
+.dragon_actions ul li:hover {
     transition: color 0.3s;
     color: rgba(255, 255, 255, 0.8);
 }
 
-.dragon_social ul li i {
+.dragon_actions ul li i {
     font-size: 19px;
     cursor: pointer;
 }

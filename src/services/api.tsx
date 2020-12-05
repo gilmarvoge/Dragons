@@ -27,8 +27,7 @@ export const getDragons = async () => {
   return await apiDragons.get(apiServices.dragonPath);
 }
 
-export const addDragon = async (dragon: IDragon) => {
-  console.log("adicionar dragao",dragon)
+export const addDragon = async (dragon: IDragon) => { 
   return await apiDragons.post(apiServices.dragonPath, dragon);
 }
 
