@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import books from './books.reducer';
+import dragons from './dragons.reducer';
 
 export const rootReducer = combineReducers({
-  books,
+  dragons,
 });

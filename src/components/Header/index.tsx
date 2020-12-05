@@ -37,9 +37,9 @@ function Header(props: HeaderProps) {
             }
           </div>
           <div className='header-logo-title'>
-            <img src={logo} alt='Biblioteca' />
+            <img src={logo} alt='Dragons' />
             <span className='span'>
-              Biblioteca
+              Dragons
             </span>
           </div>
         </div>

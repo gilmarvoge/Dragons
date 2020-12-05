@@ -43,8 +43,8 @@ import './styles.css';
 // }))(MuiDialogContent);
 
 export default function CustomizedDialogs(props: any) {
-  // const { open, book, onClose } = props;
-  // const { title, author, description, image_url } = book;
+  // const { open, dragon, onClose } = props;
+  // const { title, author, description, image_url } = dragon;
 
   // const handleClose = () => {
   //   onClose(false);
@@ -58,21 +58,20 @@ export default function CustomizedDialogs(props: any) {
     <div className='info_section'>
       <div className='movie_header'>
         <img className='locandina' src='https://mr.comingsoon.it/imgdb/locandine/235x336/53715.jpg'/>
-        <h1>Black Panther</h1>
-        <h4>2018, Ryan Coogler</h4>
-        <span className='minutes'>134 min</span>
-        <p className='type'>Action, Adventure, Sci-Fi</p>
+        <h1>roror</h1>
+        <h4>2018-12-23</h4>
+        <span className='minutes'>dsdsdmin</span>
+      
       </div>
       <div className='movie_desc'>
         <p className='text'>
-          T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake. 
+        
         </p>
       </div>
       <div className='movie_social'>
         <ul>
-          <li><i className='material-icons'>share</i></li>
-          <li><i className='material-icons'></i></li>
-          <li><i className='material-icons'>chat_bubble</i></li>
+          <li><i className='material-icons'>edit</i></li>     
+          <li><i className='material-icons'>delete</i></li>
         </ul>
       </div>
     </div>

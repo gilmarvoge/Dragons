@@ -5,8 +5,7 @@
 }
 
 html, body {
-    margin: 0;
-    background: black;
+    margin: 0;   
     font-family: 'Montserrat', helvetica, arial, sans-serif;
     font-size: 14px;
     font-weight: 400;
@@ -15,8 +14,8 @@ html, body {
 .movie_card {
     position: relative;
     display: block;
-    width: 800px;
-    height: 350px;
+    width:240px;
+    height: 200px;
     margin: 100px auto;
     overflow: hidden;
     border-radius: 10px;
@@ -117,20 +116,15 @@ html, body {
 
 .movie_desc {
     padding: 25px;
-    height: 50%;
+    height: 40%;
 }
 
 .text {
     color: #cfd6e1;
 }
 
-@media screen and (min-width: 768px) {
-    .movie_header {
-        width: 60%;
-    }
-    .movie_desc {
-        width: 50%;
-    }
+@media screen and (min-width: 768px) {   
+   
     .info_section {
         background: linear-gradient(to right, #0d0d0c 50%, transparent 100%);
     }

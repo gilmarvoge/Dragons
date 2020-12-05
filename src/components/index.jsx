@@ -1,7 +1,7 @@
 import Alert from './Alert';
 import SnackBar from './Snackbar';
-import BookDetails from './BookDetails';
-import BookList from './BookList';
+import DragonDetails from './DragonDetails';
+import DragonList from './DragonList';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Card from './Card';
@@ -9,8 +9,8 @@ import Card from './Card';
 export {
   Alert,
   SnackBar,
-  BookList,
-  BookDetails,
+  DragonList,
+  DragonDetails,
   Header,
   SearchBar,
   Card

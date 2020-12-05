@@ -3,31 +3,32 @@ import { useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { Fab, Tooltip } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
-import { SnackBar, BookList, Header, SearchBar , Card} from 'components';
-import { getBooks, getUserIdStorage, getRents } from 'services';
-import { setAllBooks } from 'redux/actions';
-import { IBooks, IBook, IRents } from 'models';
+import { SnackBar, DragonList, Header, SearchBar , Card} from 'components';
+import { getDragons, getUserIdStorage } from 'services';
+import { setAllDragons } from 'redux/actions';
+import { IDragons, IDragon } from 'models';
 import './styles.css';
 
 interface HomeProps {
-  books: IBooks;
+  dragons: IDragons;
 }
 
 function Home(props: HomeProps) {
-  const { books } = props;
+  const { dragons } = props;
   const { push } = useHistory();
   const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
-  const [filteredBooks, setFilteredBooks] = useState<IBooks>([]);
+  const [filteredBooks, setFilteredDragons] = useState<IDragons>([]);
   const [querySearch, setQuerySearch] = useState('');
   const [snack, setSnack] = useState({ open: false, type: '', message: '' });
 
-  const getAllBooks = useCallback(async () => {
+  const getAllDragons = useCallback(async () => {
     try {
-      const responseBooks = await getBooks();
-      if (responseBooks.data) {
-        dispatch(setAllBooks(responseBooks.data));
-        setFilteredBooks(responseBooks.data);
+      const responseDragons = await getDragons();
+      if (responseDragons.data) {
+        console.log("responseDragons.data",responseDragons.data)
+        dispatch(setAllDragons(responseDragons.data));
+        setFilteredDragons(responseDragons.data);
        
         const user_id = await getUserIdStorage();
         setUserId(String(user_id));
@@ -38,16 +39,16 @@ function Home(props: HomeProps) {
   }, [dispatch]);
 
   useEffect(() => {
-    const results = books.filter((book: IBook) =>
-      book.title.toLowerCase().includes(querySearch.toLowerCase()) ||
-      book.author.toLowerCase().includes(querySearch.toLowerCase())
+    const results = dragons.filter((dragon: IDragon) =>
+      dragon.name.toLowerCase().includes(querySearch.toLowerCase()) ||
+      dragon.type.toLowerCase().includes(querySearch.toLowerCase())
     );
-    setFilteredBooks(results);
-  }, [querySearch, books]);
+    setFilteredDragons(results);
+  }, [querySearch, dragons]);
 
   useEffect(() => {
-    getAllBooks();
-  }, [getAllBooks]);
+    getAllDragons();
+  }, [getAllDragons]);
 
   const handleSearch = useCallback((e) => {
     setQuerySearch(e.target.value);
@@ -61,8 +62,8 @@ function Home(props: HomeProps) {
         }
       />
       <div className='content'>
-        {/* <BookList
-          books={filteredBooks}
+        {/* <DragonList
+          dragons={filteredBooks}
           userId={userId}      
         /> */}
         <Card/>
@@ -92,8 +93,8 @@ function Home(props: HomeProps) {
   )
 }
 
-const mapStateToProps = ({ books}: { books: IBooks }) => ({
-  books,
+const mapStateToProps = ({ dragons}: { dragons: IDragons }) => ({
+  dragons,
 });
 
 export default connect(mapStateToProps)(Home);

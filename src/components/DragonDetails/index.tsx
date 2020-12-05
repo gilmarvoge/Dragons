@@ -49,8 +49,8 @@ const DialogContent = withStyles((theme: Theme) => ({
 }))(MuiDialogContent);
 
 export default function CustomizedDialogs(props: any) {
-  const { open, book, onClose } = props;
-  const { title, author, description, image_url } = book;
+  const { open, dragon, onClose } = props;
+  const { title, author, description, image_url } = dragon;
 
   const handleClose = () => {
     onClose(false);

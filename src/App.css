@@ -12,20 +12,15 @@
 }
 
 body {
-  background: #f0f0f5;
+  background: rgb(32, 32, 36);
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
+  margin: 0;   
+  font-family: 'Montserrat', helvetica, arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
 }
 
-
-
-html, body {
-    margin: 0;
-    background: black;
-    font-family: 'Montserrat', helvetica, arial, sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-}
 
 body,
 input,
