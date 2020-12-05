@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FiLogIn } from 'react-icons/fi';
-import { Header, SnackBar } from 'components';
+import { Header, SnackBar, Forms } from 'components';
 import { login, getLogin } from 'services';
 import './styles.css';
 
@@ -29,31 +29,31 @@ function Login() {
     }
 
     return (
-        <div id='page-login'>
+        <div >
             <Header />
-            <div id='page-login-content'>
-                <form id='formuser' onSubmit={handleSubmit(handleSubmitUser)}>
+          <Forms>
+                <form onSubmit={handleSubmit(handleSubmitUser)}>
                     <header>
                         <h1>Login</h1>
                     </header>
                     <fieldset>
                         <div className='field'>
-                            <label htmlFor='user'>Usuário</label>
+                            <label htmlFor='user'>User</label>
                             <input
                                 type='text'
                                 name='user'
                                 id='user'
-                                ref={register({ required: 'Digite um usuário' })}
+                                ref={register({ required: 'Enter the username' })}
                             />
                             {errors.user && <span role="alert">{errors.user.message}</span>}
                         </div>
                         <div className='field'>
-                            <label htmlFor='password'>Senha</label>
+                            <label htmlFor='password'>Password</label>
                             <input
                                 type='password'
                                 name='password'
                                 id='password'
-                                ref={register({ required: 'Digite uma senha' })}
+                                ref={register({ required: 'Enter the password' })}
                             />
                             {errors.password && <span role="alert">{errors.password.message}</span>}
                         </div>
@@ -62,10 +62,10 @@ function Login() {
                         <span>
                             <FiLogIn />
                         </span>
-                        <strong>Entrar</strong>
+                        <strong>Sign In</strong>
                     </button>
-                    <div id='page-login-criar'>Não tem uma conta?
-                        <Link to='/signup'> Registre-se</Link>
+                    <div id='page-login-criar'>Don't have an account?
+                        <Link to='/signup'> Register</Link>
                     </div>
                 </form>
                 {
@@ -77,7 +77,7 @@ function Login() {
                         onClose={setSnack}
                     />
                 }
-            </div>
+            </Forms>
         </div>
     )
 }

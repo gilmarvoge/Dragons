@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FiSmile } from 'react-icons/fi';
-import { SnackBar, Header } from 'components';
+import { SnackBar, Header, Forms } from 'components';
 import { addUser, validateUser } from 'services';
 
 function SignUp() {
@@ -31,9 +31,9 @@ function SignUp() {
     }
 
     return (
-        <div id='page-login'>
+        <div >
             <Header />
-            <div id='page-login-content'>
+            <Forms>
                 <form id='formuser' onSubmit={handleSubmit(handleSubmitUser)}>
                     <header>
                         <h1>Crie sua conta</h1>
@@ -79,7 +79,7 @@ function SignUp() {
                         onClose={setSnack}
                     />
                 }
-            </div>
+            </Forms>
         </div>
     )
 }

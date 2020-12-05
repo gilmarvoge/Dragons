@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { FiBook, FiSave } from 'react-icons/fi';
+import { FiSave } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
-import { SnackBar, Header } from 'components';
+import { SnackBar, Header, Forms } from 'components';
 import { IDragons, IDragon } from 'models';
 import { addDragon, editDragon } from 'services';
 import { setDragon, setEditedDragon } from 'redux/actions';
-import './styles.css';
 
 interface ParamTypes {
     dragonId: string
@@ -19,92 +18,108 @@ interface CreateEditBookProps {
 
 function CreateEditDragon(props: CreateEditBookProps) {
     const dispatch = useDispatch();
+    const { push } = useHistory();
     const { dragonId } = useParams<ParamTypes>();
     const { dragons } = props;
     const [snack, setSnack] = useState({ open: false, type: '', message: '' });
-    const [bookToEdit, setBookToEdit] = useState<IDragon>();
+    const [dragonToEdit, setdragonToEdit] = useState<IDragon>();
     const { register, handleSubmit, reset, errors } = useForm();
 
     useEffect(() => {
         if (dragonId !== '') {
             const dragon = dragons.filter((dragon: IDragon) => dragon.id === dragonId);
-            setBookToEdit(dragon[0]);
+            setdragonToEdit(dragon[0]);
         }
     }, [dragonId, dragons]);
+
+    useEffect(() => {       
+    }, [useHistory]);
 
     const handleSubmitBook = async (data: any, event: any) => {
         event.preventDefault();
 
-        let { name, type,  } = data;       
-        const dragon = { id: dragonId, type, name,  createdAt: Date.now() };
-        if (name && type ) {
+        let { name, type, } = data;
+        var date = new Date().toISOString().substring(0, 10);
+        const dragon = { id: dragonId, type, name, createdAt: date, histories: [] };
+        if (name && type) {
             if (dragonId) {
                 let response = await editDragon(dragonId, dragon);
                 if (response.data) {
                     dispatch(setEditedDragon(dragonId, dragon));
-                    setSnack({ open: true, type: 'success', message: 'Livo editado com sucesso' });
+                    push('/');
                 }
-            } else {
+            } else {              
                 let response = await addDragon(dragon);
-                if (response.data){
+                if (response.data) {
                     dispatch(setDragon(response.data));
                     setSnack({ open: true, type: 'success', message: 'Livo cadastrado com sucesso' });
                 }
             }
-            reset();            
+            reset();
         }
         else
             setSnack({ open: true, type: 'error', message: 'Campos não preenchidos' });
     }
 
     return (
-        <div id='page-createedit-dragon' data-testid='create-dragon'>
+        <div data-testid='create-dragon'>
             <Header left right />
-            < div id='page-createedit-dragon-content'>
+            <Forms>
                 <form onSubmit={handleSubmit(handleSubmitBook)}>
-                    <h1>{dragonId && dragonId !== '' ? 'Editar livro' : 'Cadastro do livro'}</h1>
+                    <h1>{dragonId && dragonId !== '' ? 'Edit Dragon' : 'Register Dragon'}</h1>
                     <fieldset>
                         <div className='field'>
-                            <label htmlFor='name'>Título</label>
+                            <label htmlFor='name'>Name</label>
                             <input
-                                defaultValue={bookToEdit?.name}
+                                defaultValue={dragonToEdit?.name}
                                 type='text'
                                 name='name'
                                 id='name'
-                                ref={register({ required: 'Digite o nome do livro' })}
+                                ref={register({ required: 'Enter the name of the dragon' })}
                             />
                             {errors.name && <span role='alert'> {errors.name.message}</span>}
 
                         </div>
                         <div className='field'>
-                            <label htmlFor='type'>Autor</label>
+                            <label htmlFor='type'>Type</label>
                             <input
-                                defaultValue={bookToEdit?.type}
+                                defaultValue={dragonToEdit?.type}
                                 type='text'
                                 name='type'
                                 id='type'
-                                ref={register({ required: 'Digite o nome do autor' })}
+                                ref={register({ required: 'Enter the type of the dragon' })}
                             />
                             {errors.type && <span role='alert'> {errors.type.message}</span>}
-                        </div>                       
+                        </div>
+                        <div className='field'>
+                            <label htmlFor='date'>Creation Date</label>
+                            <input
+                                disabled
+                                defaultValue={new Date().toLocaleString()}
+                                type='text'
+                                name='date'
+                                id='date'
+                            />
+                        </div>
                     </fieldset>
                     <button type='submit' data-testid='submit-button'>
                         <span>
-                            {dragonId ? <FiSave /> : <FiBook />}
+                            <FiSave />
                         </span>
-                        <strong>  {dragonId ? 'Salvar livro' : 'Cadastrar livro'}</strong>
+                        <strong>  {dragonId ? 'Save Dragon' : 'Register Dragon'}</strong>
                     </button>
                 </form>
-                {
-                    snack.open &&
-                    <SnackBar
-                        open={snack.open}
-                        type={snack.type}
-                        message={snack.message}
-                        onClose={setSnack}
-                    />
-                }
-            </div>
+            </Forms>
+            {
+                snack.open &&
+                <SnackBar
+                    open={snack.open}
+                    type={snack.type}
+                    message={snack.message}
+                    onClose={setSnack}
+                />
+            }
+
         </div>
     )
 }

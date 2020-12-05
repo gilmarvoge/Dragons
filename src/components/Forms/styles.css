@@ -1,0 +1,116 @@
+
+#form{
+  width: 100%;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: center;
+}
+
+#form form {
+  width: 100%;
+  max-width: 580px;
+  padding: 30px 64px 64px 64px;
+  background: var(--background-color-card);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+#form form h1 {
+  font-size: 40px;
+  margin-top: 15px;
+}
+
+#form form fieldset {
+  margin-top: 64px;
+  min-inline-size: auto;
+  border: 0;
+}
+
+#form form .field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+#form form .field input[type="text"], #form form .field input[type="password"] {
+  flex: 1; 
+  border-radius: 8px;
+  border: 0;
+  padding: 16px 24px;
+  font-size: 16px; 
+  outline: 0px;
+  border: 2px solid;
+}
+#form form .field input:focus{
+  border:  2px solid var(--primary-color);  
+}
+
+#form form .field input:disabled {
+  background: rgb(65, 53, 107);
+  color: rgba(255, 255, 255, 0.35);
+}
+
+#form form .field input::placeholder {
+  color: #a0a0b2;
+}
+
+#form form .field label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+#form form .field :disabled {
+  cursor: not-allowed;
+}
+
+#form form button {
+  height: 56px;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  background: var(--primary-color);
+  border-radius: 5px;
+  border: 0px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  transition: background 0.2s ease 0s, color 0.2s ease 0s;
+  text-transform: uppercase;
+  outline:none;
+}
+
+#form form button:hover {
+  background: var(--hover-color);
+}
+
+#form form button span {
+  display: block;
+  background: rgba(0, 0, 0, 0.08);
+  width: 72px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;  
+}
+
+#form form button strong {
+  flex: 1 1;
+  text-align: center;
+  color: #fff;
+}
+
+#form form button span svg {
+  color: #fff;
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 500px) {
+  #form form {
+    margin-left: 0;
+  }
+}

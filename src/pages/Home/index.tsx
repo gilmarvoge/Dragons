@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { Fab, Tooltip } from '@material-ui/core';
-import { Add as AddIcon } from '@material-ui/icons';
-import { SnackBar, DragonList, Header, SearchBar , Card} from 'components';
+import { SnackBar, DragonList, Header, SearchBar } from 'components';
 import { getDragons, getUserIdStorage } from 'services';
 import { setAllDragons } from 'redux/actions';
 import { IDragons, IDragon } from 'models';
@@ -18,17 +16,24 @@ function Home(props: HomeProps) {
   const { push } = useHistory();
   const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
-  const [filteredBooks, setFilteredDragons] = useState<IDragons>([]);
+  const [filteredDragons, setFilteredDragons] = useState<IDragons>([]);
   const [querySearch, setQuerySearch] = useState('');
   const [snack, setSnack] = useState({ open: false, type: '', message: '' });
+
+  const order=(response:any)=>{
+    console.log("order")
+   return response.sort((a:any, b:any) => {
+       return (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase())
+    }) 
+  }
 
   const getAllDragons = useCallback(async () => {
     try {
       const responseDragons = await getDragons();
-      if (responseDragons.data) {
-        console.log("responseDragons.data",responseDragons.data)
-        dispatch(setAllDragons(responseDragons.data));
-        setFilteredDragons(responseDragons.data);
+      if (responseDragons.data) { 
+       const dragonOrder:IDragons = order(responseDragons.data);
+        dispatch(setAllDragons(dragonOrder));
+        setFilteredDragons(dragonOrder);
        
         const user_id = await getUserIdStorage();
         setUserId(String(user_id));
@@ -62,13 +67,16 @@ function Home(props: HomeProps) {
         }
       />
       <div className='content'>
-        {/* <DragonList
-          dragons={filteredBooks}
+        <DragonList
+          dragons={filteredDragons}
           userId={userId}      
-        /> */}
-        <Card/>
-      </div>
-      <Tooltip title='Adicionar livro' placement='bottom'>
+        />       
+      </div>    
+      <div className="create-button">
+          <Link to="/create" className="create-button" >Add a book</Link>
+        </div>
+
+      {/* <Tooltip title='Adicionar livro' placement='bottom'>
         <Fab
           color='primary'
           aria-label='add'
@@ -79,7 +87,7 @@ function Home(props: HomeProps) {
         >
           <AddIcon />
         </Fab>
-      </Tooltip>
+      </Tooltip> */}
       {
         snack.open &&
         < SnackBar

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { Grid, Tooltip, Card, CardHeader, CardContent, CardActions, IconButton } from '@material-ui/core';
+import dateFormat from 'dateformat';
+import { Grid, Tooltip, CardHeader, CardContent, CardActions, IconButton } from '@material-ui/core';
 import { Visibility as VisibilityIcon, Delete as DeleteIcon, MenuBook as MenuBookIcon, Edit as EditIcon } from '@material-ui/icons';
-import { SnackBar, DragonDetails } from 'components';
+import { SnackBar, DragonDetails, Card } from 'components';
 import { setDeletedDragon } from 'redux/actions';
 import { deleteDragon } from 'services';
 import { IDragon, IDragons } from 'models';
@@ -36,23 +37,24 @@ function DragonList(props: BookListProps) {
   }
 
   const handleEditDragon = (id: string) => {
-
     push(`/edit/${id}`);
-
   }
 
   return (
-    <Grid container spacing={2} justify='center' >
+    <div className='grid-container'>
       {showDetails && <DragonDetails open={showDetails.open} dragon={showDetails.dragon} onClose={setShowDetails} />}
       {dragons && dragons.map((dragon: IDragon) => {
         return (
-          <Grid item key={dragon.id}>
+          <div className='grid-item' key={dragon.id}>
             <Card
-              classes={{
-                root: 'card-root',
-              }}
+              name={dragon.name}
+              type={dragon.type}
+              date={dateFormat(dragon.createdAt, "dd/mm/yyyy")}
+              onEdit={() => handleEditDragon(String(dragon.id))}
+              onDelete={() => handleDeleteDragon(String(dragon.id))}
+
             >
-              <CardHeader
+              {/* <CardHeader
                 classes={{
                   root: 'card-header-root',
                   title: 'card-header-title',
@@ -94,16 +96,16 @@ function DragonList(props: BookListProps) {
                     <VisibilityIcon />
                   </IconButton>
                 </Tooltip>
-              </CardActions>
+              </CardActions> */}
             </Card>
-          </Grid>
+          </div>
         )
       })}
       {
         snack.open &&
         < SnackBar open={snack.open} type={snack.type} message={snack.message} onClose={setSnack} />
       }
-    </Grid>
+    </div>
   )
 }
 

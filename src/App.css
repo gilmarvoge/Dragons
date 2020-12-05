@@ -1,8 +1,10 @@
 :root {
-  --primary-color: #6c62ff;
-  --title-color: #39365f;
-  --text-color: #6c6c80;
+  --primary-color: rgb(130, 87, 230);
+  --title-color: rgb(130, 87, 230);
+  --text-color: rgb(130, 87, 230);
   --hover-color: #6c63ffd6;
+  --background-color:  rgb(18, 18, 20);
+  --background-color-card:rgb(32, 32, 36);
 }
 
 * {
@@ -12,28 +14,30 @@
 }
 
 body {
-  background: rgb(32, 32, 36);
+  background:  var(--background-color);
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
-  margin: 0;   
+  margin: 0;
   font-family: 'Montserrat', helvetica, arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
 }
+/* #page-login {
+  height: 100vh;
+  overflow-y: auto;
+  width: 100%;
+  margin: 0;
+  background: url("../../assets/login-background.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom right;
+} */
 
-
-body,
-input,
-button {
+body, input, button {
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   color: var(--title-color);
   font-family: Ubuntu;
 }

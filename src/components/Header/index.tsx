@@ -1,9 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { FiLogOut, FiArrowLeft } from 'react-icons/fi';
 import { logoff } from 'services/auth';
 import logo from '../../assets/logo.svg';
 import './styles.css';
@@ -29,11 +26,9 @@ function Header(props: HeaderProps) {
         <div className='header-logo'>
           <div className='header-actions-start'>
             {left &&
-              <Tooltip title='Voltar' placement='bottom'>
-                <IconButton onClick={() => push('/')}>
-                  <ArrowBackIcon fontSize='large' />
-                </IconButton>
-              </Tooltip>
+              <span >
+                <FiArrowLeft className='icons' onClick={() => push('/')} />
+              </span>
             }
           </div>
           <div className='header-logo-title'>
@@ -48,11 +43,9 @@ function Header(props: HeaderProps) {
         </div>
         <div className='header-actions-end'>
           {right &&
-            <Tooltip title='Sair' placement='bottom'>
-              <IconButton onClick={signOut} >
-                <ExitToAppIcon fontSize='large' />
-              </IconButton>
-            </Tooltip>
+            <span >
+              <FiLogOut className='icons' onClick={signOut} />
+            </span>
           }
         </div>
       </header>
