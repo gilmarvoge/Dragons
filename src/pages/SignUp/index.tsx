@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FiSmile } from 'react-icons/fi';
 import { Header, Forms } from 'components';
 import { addUser, validateUser } from 'services';
 
 function SignUp() {
-    const { register, handleSubmit, errors, reset } = useForm();
+    const { register, handleSubmit, errors } = useForm();
+    const { push } = useHistory();
 
     const handleSubmitUser = async (data: any, event: any) => {
         event.preventDefault();
@@ -19,7 +20,7 @@ function SignUp() {
             else {
                 const response = await addUser(newUser);
                 if (response.data)
-                    reset();
+                    push('/login');
                 else
                     alert(`Unable to register: ${response.status} ${response.statusText}`);
             }
