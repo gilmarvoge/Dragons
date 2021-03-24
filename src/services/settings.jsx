@@ -1,5 +1,5 @@
 export const userPath = '/users';
-export const dragonPath = '/dragon';
+export const dragonPath = '/dragons';
 
 
 
